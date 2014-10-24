@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>restwebservise</title>
+
+    <!-- Bootstrap -->
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="js/index.js"></script>
+</head>
+<body>
+
+<div class="container" id="content">
+    <!-- Авторизация -->
+    <form id="login" action="none" mathod="post">
+        <fieldset id="inputs">
+
+            <input id="email" type="text" onblur="if(this.value=='')this.value='Логін';"
+                   onfocus="if(this.value=='Логін')this.value='';" value="Логін"/>
+            <input id="password" type="password" onblur="if(this.value=='')this.value='Пароль';"
+                   onfocus="if(this.value=='Пароль')this.value='';" value="Пароль"/>
+        </fieldset>
+        <fieldset id="actions">
+            <input type="submit" id="submit" value="Увійти"/>
+       	</fieldset>
+    </form>
+</div>
+
+</body>
+</html>
