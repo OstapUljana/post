@@ -80,5 +80,47 @@ function authorization() {
             $(this).toggleClass("active");
         });
     }
+    
+    
+    
   
+    function fillBookContent(data, clas) {
+        var i = 0;
+        if (data != null) {
+            $("." + clas).each(function () {
+                $(this).html("<div class = 'b-title'>"+
+                		"<a><span class = 'title'>" + data[i].title + "</span></a></div>"+
+                		 "<div class = 'b-author'><a href = '#'><span class = 'author'>"
+                		+ data[i].idUsers + "</span></a></div>"+
+                		"<div><a>"+data[i].text+"</a></div>");
+                i++
+            });
+        }
+    }
+        
+
+        $('.row').ready(function () {
+            $.ajax({
+                type: "get",
+                url: "/restwebservice/rest/article/list/2/1/datetime",
+                crossDomain: true,
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    fillBookContent(data, "new");
+                }
+            });
+            $.ajax({
+                type: "get",
+                url: "/restwebservice/rest/article/list/2/0/datetime",
+                crossDomain: true,
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    fillBookContent(data, "popular")
+                }
+            });
+        });
+
+
           

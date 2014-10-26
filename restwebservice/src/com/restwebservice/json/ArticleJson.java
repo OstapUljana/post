@@ -2,6 +2,8 @@ package com.restwebservice.json;
 
 import java.sql.Timestamp;
 
+import com.restwebservice.entities.Article;
+
 
 public class ArticleJson {
 	private int idArticle;
@@ -10,6 +12,14 @@ public class ArticleJson {
 	private String text;
 	private String idUsers;
 	 
+	public ArticleJson(Article article) {
+		super();
+		this.idArticle = article.getIdArticle();
+		this.title = article.getTitle();
+		this.datetime = article.getDatetime();
+		this.text = article.getText();
+		this.idUsers = article.getUsersByIdUsers().getName();
+	}
 	public int getIdArticle() {
 		return idArticle;
 	}
