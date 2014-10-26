@@ -10,7 +10,7 @@ import com.restwebservice.dao.UsersGroupDaoImpl;
 import com.restwebservice.entities.Users;
 
 
-@Path("reg")
+@Path("/reg")
 public class Registration {
 	
     @POST
