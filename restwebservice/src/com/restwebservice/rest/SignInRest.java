@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.entities.Users;
 import com.restwebservice.json.UsersJson;
+import com.restwebservice.util.DaoFactory;
 
 
 /**
@@ -28,9 +29,7 @@ public class SignInRest {
     public Response login(@FormParam("email") String email,
             @FormParam("password") String password){
     	
-    	System.out.print(email+" "+password);
-        UsersDaoImpl usersDao = new UsersDaoImpl();
-        Users user = usersDao.selectByEmail(email);
+        Users user = DaoFactory. getUsersDaoImplInstance().selectByEmail(email);
         
         System.out.print(email+" "+password);
         
@@ -57,8 +56,7 @@ public class SignInRest {
     @Path("/get-user")
     @Produces("application/json")
     public UsersJson getUser(@CookieParam("user") String userEmail) {
-    	UsersDaoImpl usersDao = new UsersDaoImpl();
-        Users user = usersDao.selectByEmail(userEmail);
+        Users user = DaoFactory.getUsersDaoImplInstance().selectByEmail(userEmail);
 
         return new UsersJson(user);
     }

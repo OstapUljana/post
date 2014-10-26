@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.dao.UsersGroupDaoImpl;
 import com.restwebservice.entities.Users;
+import com.restwebservice.util.DaoFactory;
 
 
 @Path("/reg")
@@ -18,28 +19,23 @@ public class Registration {
     		@FormParam("name") String name,
                               @FormParam("password") String password
                               ) {
-
-        UsersDaoImpl userDao = new UsersDaoImpl();
-
-       
-      
+     
         // HTTP 409 (Conflict)
-        if (userDao.exist(email)) {
+        if (DaoFactory.getUsersDaoImplInstance().exist(email)) {
             return Response.status(409)
                     .entity("Користувач з таким іменем уже зареєстрований").build();
         }
 
         Users user = new Users();
-        UsersGroupDaoImpl group = new UsersGroupDaoImpl();
 
         user.setName(name);
         user.seteMail(email);
         user.setPassword(password);
-        user.setUsersgroupByUsersGroup(group.getGroupByType("user"));
+        user.setUsersgroupByUsersGroup(DaoFactory.getUsersGroupDaoImplInstance().getGroupByType("user"));
 
        
 
-        userDao.insert(user);
+        DaoFactory.getUsersDaoImplInstance().insert(user);
 
         return Response.ok().build();
     }

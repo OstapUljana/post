@@ -6,6 +6,7 @@ import java.util.List;
 import com.restwebservice.dao.ArticleDaoImpl;
 import com.restwebservice.entities.Article;
 import com.restwebservice.json.*;
+import com.restwebservice.util.DaoFactory;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,8 +23,8 @@ public class Post {
     		@PathParam("order") String order, @PathParam("byWhat") String byWhat) {
 
         ArrayList<ArticleJson> artsJson = new ArrayList<ArticleJson>();
-        ArticleDaoImpl art = new ArticleDaoImpl();
-        List<Article> articles = art.selectOrdered(byWhat, Integer.parseInt(limit), 
+        
+        List<Article> articles = DaoFactory.getArticleDaoImplInstance().selectOrdered(byWhat, Integer.parseInt(limit), 
         		Integer.parseInt(order) == 0 ? false : true);
 
         for (Article article : articles) {

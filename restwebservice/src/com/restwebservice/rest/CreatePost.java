@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import com.restwebservice.dao.ArticleDaoImpl;
 import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.entities.Article;
+import com.restwebservice.util.DaoFactory;
 
 /**
  * @author User
@@ -28,22 +29,18 @@ public class CreatePost {
 	public Response createPost(@CookieParam("user") String enteredUser,
 			@FormParam("post") String post){
 		
-		ArticleDaoImpl articleDao = new ArticleDaoImpl();
-		UsersDaoImpl userDao = new UsersDaoImpl();
 		Article article = new Article();
 		
-
 		Date date= new Date();
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
-
 	  
 		article.setText(post);
 		article.setTitle("NEW");
 		article.setDatetime(ts);
-		article.setUsersByIdUsers(userDao.selectByEmail(enteredUser));
+		article.setUsersByIdUsers(DaoFactory.getUsersDaoImplInstance().selectByEmail(enteredUser));
 		
-		articleDao.insert(article);
+		DaoFactory.getArticleDaoImplInstance().insert(article);
 		
 		return Response.ok().build();
 	}
