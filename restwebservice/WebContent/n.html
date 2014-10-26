@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration</title>
+    <meta charset="utf-8" />
+	 <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+	<link rel="stylesheet" href="main.css">
+  </head>
+  
+  <body>
+    <div class="nav">
+      <div class="container">
+        <ul class="pull-left">
+          <li><a href="#">Name</a></li>
+          <li><a href="#">Browse</a></li>
+        </ul>
+        <ul class="pull-right">
+          <li><a href="#">Sign Up</a></li>
+          <li><a href="#">Log In</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+    </div>
+	
+	
+	<div class="jumbotron">
+      <div class="container">
+    <form>
+        <p>
+          <label for="name">Name</label>
+          <input type="text" id="name" maxlength="25" pattern="[А-Яа-яЁёA-Za-z\s]+$" required />
+        </p>        
+        <p>
+          <label for="mail">E-mail</label>
+          <input type="email" id="mail" maxlength="25"  />
+        </p>
+        <p>
+          <label for="passw">Password</label>
+          <input type="password" id="passw" pattern="\w{5,25}" required/>
+        </p>
+        <p>
+          <label for="repeat">Password</label>
+          <input type="password" id="repeat" pattern="\w{5,25}" required/>
+        </p>
+         
+        <button type="submit" class="btn">Sign Up</button> 
+    </form>
+	</div>
+	</div>
+  </body>
+</html>
