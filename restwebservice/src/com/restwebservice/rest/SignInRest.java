@@ -9,6 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.entities.Users;
 import com.restwebservice.json.UsersJson;
@@ -23,35 +25,36 @@ public class SignInRest {
     private final String COOKIE_PATH = "/";
     private final String COOKIE_DOMAIN = "";
 
+    // Login
     @POST
-   // @Produces("text/plain")
     @Path("/log")
     public Response login(@FormParam("email") String email,
             @FormParam("password") String password){
     	
         Users user = DaoFactory. getUsersDaoImplInstance().selectByEmail(email);
+        String hexedPassword = DigestUtils.sha1Hex(password);
         
-        System.out.print(email+" "+password);
         
         // User not exist
         if (user == null) {
-            return Response.status(400).entity("Error1").build();
+            return Response.status(400).entity("Неправильні дані авторизації").build();
+        }
+        // Wrong user password
+        if (!hexedPassword.equals(user.getPassword())) {
+            return Response.status(400).entity("Неправильні дані авторизації").build();
         }
 
-        // Wrong user password
-        if (!user.getPassword().equals(password)) {
-            return Response.status(400).entity("Error2").build();
-        }
 
         // All OK :
         NewCookie cookie = new NewCookie("user", email, COOKIE_PATH, COOKIE_DOMAIN, "",8800,false);
 
         // HTTP 307 - Redirect
-        return Response.status(307).entity("index.html")
+        return Response.status(307).entity("index1.html")
                 .cookie(cookie).build()
                 ;
     }
     
+    // 
     @GET
     @Path("/get-user")
     @Produces("application/json")
@@ -61,6 +64,7 @@ public class SignInRest {
         return new UsersJson(user);
     }
 
+    // logout
     @POST
     @Path("/logout")
     public Response logout(@CookieParam("user") String userEmail) {

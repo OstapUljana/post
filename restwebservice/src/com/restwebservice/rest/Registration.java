@@ -5,6 +5,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.dao.UsersGroupDaoImpl;
 import com.restwebservice.entities.Users;
@@ -17,8 +19,7 @@ public class Registration {
     @POST
     public Response register(@FormParam("email") String email,
     		@FormParam("name") String name,
-                              @FormParam("password") String password
-                              ) {
+            @FormParam("password") String password) {
      
         // HTTP 409 (Conflict)
         if (DaoFactory.getUsersDaoImplInstance().exist(email)) {
@@ -30,13 +31,13 @@ public class Registration {
 
         user.setName(name);
         user.seteMail(email);
-        user.setPassword(password);
+        user.setPassword(DigestUtils.sha1Hex(password));
         user.setUsersgroupByUsersGroup(DaoFactory.getUsersGroupDaoImplInstance().getGroupByType("user"));
 
        
 
         DaoFactory.getUsersDaoImplInstance().insert(user);
-
+System.out.println("Login");
         return Response.ok().build();
     }
 }

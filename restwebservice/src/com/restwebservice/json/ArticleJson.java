@@ -11,6 +11,7 @@ public class ArticleJson {
 	private Timestamp datetime;
 	private String text;
 	private String idUsers;
+    private String tag;
 	 
 	public ArticleJson(Article article) {
 		super();
@@ -19,6 +20,7 @@ public class ArticleJson {
 		this.datetime = article.getDatetime();
 		this.text = article.getText();
 		this.idUsers = article.getUsersByIdUsers().getName();
+		this.tag = article.getTag();
 	}
 	public int getIdArticle() {
 		return idArticle;
@@ -50,14 +52,19 @@ public class ArticleJson {
 	public void setIdUsers(String idUsers) {
 		this.idUsers = idUsers;
 	}
-	
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	
 	
 	@Override
 	public String toString() {
 		return "ArticleJson [idArticle=" + idArticle + ", title=" + title
 				+ ", datetime=" + datetime + ", text=" + text + ", idUsers="
-				+ idUsers + "]";
+				+ idUsers + ", tag=" + tag + "]";
 	}
 	@Override
 	public int hashCode() {

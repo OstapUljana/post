@@ -30,6 +30,7 @@ public class Post {
         for (Article article : articles) {
             ArticleJson artJson = new ArticleJson(article);
             artsJson.add(artJson);
+            System.out.println(artJson.toString());
         }
 
         return artsJson;

@@ -1,9 +1,9 @@
 package com.restwebservice.entities;
 
-
-
 import javax.persistence.*;
+
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by User on 07.10.2014.
@@ -15,7 +15,9 @@ public class Article {
     private Timestamp datetime;
     private String text;
     private Users usersByIdUsers;
-
+    private String tag;
+    private Collection<Comment> commentsByIdArticle;
+    
     @Id
     @Column(name = "idArticle", nullable = false, insertable = true, updatable = true)
     public int getIdArticle() {
@@ -88,5 +90,24 @@ public class Article {
 
     public void setUsersByIdUsers(Users usersByIdUsers) {
         this.usersByIdUsers = usersByIdUsers;
+    }
+    
+    @Basic
+    @Column(name = "tag", nullable = true, insertable = true, updatable = true, length = 600)
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    @OneToMany(mappedBy = "articleByIdArticle")
+    public Collection<Comment> getCommentsByIdArticle() {
+        return commentsByIdArticle;
+    }
+
+    public void setCommentsByIdArticle(Collection<Comment> commentsByIdArticle) {
+        this.commentsByIdArticle = commentsByIdArticle;
     }
 }

@@ -64,17 +64,11 @@ function authorization() {
         });
     }
 
+
     function loginButtonEnable() {
         $(('#navbarHeader')).html(
-                "<ul class='nav navbar-nav pull-right'>" +
-                "<li class='active'><a href='/'>Головна</a></li>" +
-                "<li><a href='/allbooks.html'>Усі книжки</a></li>" +
-                "<li><a href='/how2buy.html'>Як придбати</a></li>" +
-                "<li><a href='/about.html'>Про видавництво</a></li>" +
-                "<li><a href='javascript:void(0)' id = 'enter'>Увійти</a></li>" +
-                "</ul>"
+                "<a href='javascript:void(0)' id = 'enter'>Увійти</a>" 
         );
-
         $("#enter").click(function () {
             $("#login").slideToggle("slow");
             $(this).toggleClass("active");

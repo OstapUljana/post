@@ -24,21 +24,26 @@ import com.restwebservice.util.HibernateUtil;
 
 public class ArticleDaoImpl {
 	
-	 public void insert(Article article) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        try {
-	            session.beginTransaction();
-	            session.persist("Article", article);
-	            if (!session.getTransaction().wasCommitted())
-	                session.getTransaction().commit();
-	        } catch (Exception e) {
-	            if (session != null)
-	                session.getTransaction().rollback();
-	        } finally {
+	//Выбор постов из базы по заголовку
+	 public List<Article> search(String name, int howMuch){
+	        Session session;
+	        session = HibernateUtil.getSessionFactory().openSession();
+	        Query query = null;
+	        query = session.createQuery("FROM Article art WHERE art.title LIKE '%" + name + "%' asc");
+	        
+	        if (!query.list().isEmpty()) {
+	            query.setFirstResult(0);
+	            query.setMaxResults(howMuch);
+	            List<Article> result = query.list();
 	            session.close();
+	            return result;
+	        } else {
+	            session.close();
+	            return null;
 	        }
-	    }
-	 
+	 }
+	
+	 //Выбор постов из базы по полю byWhat
 	 public List<Article> selectOrdered(String byWhat,int howmuch,boolean order){
 	        Session session;
 	        session = HibernateUtil.getSessionFactory().openSession();
@@ -58,5 +63,20 @@ public class ArticleDaoImpl {
 	            return null;
 	        }
 	    }
-
+	
+	//Занесение поста в БД
+	 public void insert(Article article) {
+	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        try {
+	            session.beginTransaction();
+	            session.persist("Article", article);
+	            if (!session.getTransaction().wasCommitted())
+	                session.getTransaction().commit();
+	        } catch (Exception e) {
+	            if (session != null)
+	                session.getTransaction().rollback();
+	        } finally {
+	            session.close();
+	        }
+	    }
 }

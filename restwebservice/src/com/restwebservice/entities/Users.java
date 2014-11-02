@@ -1,7 +1,6 @@
 package com.restwebservice.entities;
 
 
-
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -16,6 +15,7 @@ public class Users {
     private String name;
     private Collection<Article> articlesByIdUsers;
     private Usersgroup usersgroupByUsersGroup;
+    private Collection<Comment> commentsByIdUsers;
 
     @Id
     @Column(name = "idUsers", nullable = false, insertable = true, updatable = true)
@@ -99,4 +99,15 @@ public class Users {
     public void setUsersgroupByUsersGroup(Usersgroup usersgroupByUsersGroup) {
         this.usersgroupByUsersGroup = usersgroupByUsersGroup;
     }
+    
+    @OneToMany(mappedBy = "usersByIdUsers")
+    public Collection<Comment> getCommentsByIdUsers() {
+        return commentsByIdUsers;
+    }
+
+    public void setCommentsByIdUsers(Collection<Comment> commentsByIdUsers) {
+        this.commentsByIdUsers = commentsByIdUsers;
+    }
+    
+    
 }

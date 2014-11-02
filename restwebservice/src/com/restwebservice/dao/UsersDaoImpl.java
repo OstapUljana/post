@@ -25,7 +25,7 @@ public class UsersDaoImpl {
             session.close();
             return result;
         } else {
-        	System.out.print("No email");
+        	System.out.println("No email");
             session.close();
             return null;
         }

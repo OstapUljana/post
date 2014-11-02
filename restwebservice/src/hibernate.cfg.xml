@@ -34,6 +34,7 @@
 		<mapping class="com.restwebservice.entities.Users" />
 		<mapping class="com.restwebservice.entities.Usersgroup" />
 		<mapping class="com.restwebservice.entities.Article" />
+		<mapping class="com.restwebservice.entities.Comment" />
 
 	</session-factory>
 

@@ -12,7 +12,7 @@ $(document).ready(function() {
                 data: {'email': email, 'name': name, 'password': password},
                 response: 'text', // response type
                 success: function (data) {
-                    location.href = '/restwebservice/index.html';
+                    location.href = '/restwebservice/index1.html';
                 },
                 statusCode: {
                 	// HTTP 409 - Conflict
