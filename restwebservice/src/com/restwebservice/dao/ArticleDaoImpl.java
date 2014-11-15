@@ -79,4 +79,19 @@ public class ArticleDaoImpl {
 	            session.close();
 	        }
 	    }
+
+	 public Article selectById(int id) {
+	        Session session;
+	        session = HibernateUtil.getSessionFactory().openSession();
+	        Query query = session.createQuery("FROM Article art WHERE art.id=" +
+	                Integer.toString(id));
+	        if (!query.list().isEmpty()) {
+	            Article result = (Article) query.list().get(0);
+	            session.close();
+	            return result;
+	        } else {
+	            session.close();
+	            return null;
+	        }
+	    }
 }

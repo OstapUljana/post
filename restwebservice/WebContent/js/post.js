@@ -1,3 +1,25 @@
+var currentArticle;
+
+$(document).ready(function(){
+    var URL = window.location.search;
+    var getRequest=URL.split("?")[1];
+    id=getRequest.split("=")[1];
+  $.ajax({
+       type:"get",
+       dataType:"json",
+       url:"rest/article/get/"+id,
+       success:function(data){
+            currentArticle = data;
+            $("#users").html(data.idUsers);
+            $("#datetime").html(data.datetime);
+            $("#title").html(data.title);
+            $("#text").html(data.text);
+       }
+
+    });
+  });
+
+
 $('#bs-example-navbar-collapse-1').ready(function () {
     // If user is Sign In show logout
     $.ajax({
@@ -51,37 +73,3 @@ function loginButtonEnable() {
         $(this).toggleClass("active");
     });
 }
-
-function allPost(data, clas) {
-    var i = 0;
-    if (data != null) {
-        $("." + clas).each(function () {
-            $(this).html(
-            		 "<div class='content-section-a'><div class='container'>"+
-     		         "<div class='row' id='row'>" + 
-            		"<hr class='section-heading-spacer'>"+
-                    "<div class='clearfix'></div>"+
-                    "<a href='rest/article/getPagePost/"+data[i].idArticle+"'><h2 class='section-heading'>" + data[i].title+ "</h2></a>"+
-                    "<p class='lead'>"+ data[i].text+ "</p>"+
-                    "</div></div></div>");
-            i++
-        });
-    }
-}
-    
-
-    $('.pack').ready(function () {
-        $.ajax({
-            type: "get",
-            url: "/restwebservice/rest/article/list/3/1/datetime",
-            crossDomain: true,
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-            	allPost(data, "pack2");
-            }
-        });
-        
-    });
-
-
