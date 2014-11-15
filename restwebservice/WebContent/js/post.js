@@ -11,7 +11,7 @@ $(document).ready(function(){
        success:function(data){
             currentArticle = data;
             $("#users").html(data.idUsers);
-            $("#datetime").html(data.datetime);
+            $("#datetime").html("<span class='glyphicon glyphicon-time' ></span> Posted on "+ data.datetime);
             $("#title").html(data.title);
             $("#text").html(data.text);
        }

@@ -1,6 +1,9 @@
 package com.restwebservice.json;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import com.restwebservice.entities.Article;
 
@@ -8,16 +11,22 @@ import com.restwebservice.entities.Article;
 public class ArticleJson {
 	private int idArticle;
 	private String title;
-	private Timestamp datetime;
+	private String datetime;
 	private String text;
 	private String idUsers;
     private String tag;
+    DateFormat df = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.UK);
+    //DateFormat df2 = new SimpleDateFormat("HH:mm");
+	
+	
+	
 	 
 	public ArticleJson(Article article) {
 		super();
 		this.idArticle = article.getIdArticle();
 		this.title = article.getTitle();
-		this.datetime = article.getDatetime();
+		
+		this.datetime = (df.format(article.getDatetime()).toString());//+ " at " + df2.format(article.getDatetime()).toString();		
 		this.text = article.getText();
 		this.idUsers = article.getUsersByIdUsers().getName();
 		this.tag = article.getTag();
@@ -34,10 +43,10 @@ public class ArticleJson {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Timestamp getDatetime() {
+	public String getDatetime() {
 		return datetime;
 	}
-	public void setDatetime(Timestamp datetime) {
+	public void setDatetime(String datetime) {
 		this.datetime = datetime;
 	}
 	public String getText() {
@@ -62,6 +71,7 @@ public class ArticleJson {
 	
 	@Override
 	public String toString() {
+		
 		return "ArticleJson [idArticle=" + idArticle + ", title=" + title
 				+ ", datetime=" + datetime + ", text=" + text + ", idUsers="
 				+ idUsers + ", tag=" + tag + "]";
