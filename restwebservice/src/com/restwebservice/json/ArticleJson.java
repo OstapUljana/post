@@ -15,18 +15,14 @@ public class ArticleJson {
 	private String text;
 	private String idUsers;
     private String tag;
-    DateFormat df = new SimpleDateFormat("dd MMMM yyyy  HH:mm", Locale.UK);
-    //DateFormat df2 = new SimpleDateFormat("HH:mm");
-	
-	
-	
+    DateFormat df = new SimpleDateFormat("dd MMMM yyyy 'at'  HH:mm", Locale.UK);	
 	 
 	public ArticleJson(Article article) {
 		super();
 		this.idArticle = article.getIdArticle();
 		this.title = article.getTitle();
 		
-		this.datetime = (df.format(article.getDatetime()).toString());//+ " at " + df2.format(article.getDatetime()).toString();		
+		this.datetime = (df.format(article.getDatetime()).toString());		
 		this.text = article.getText();
 		this.idUsers = article.getUsersByIdUsers().getName();
 		this.tag = article.getTag();
