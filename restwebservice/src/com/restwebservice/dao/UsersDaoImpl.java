@@ -58,4 +58,19 @@ public class UsersDaoImpl {
             session.close();
         }
     }
+    
+    public void update(Users user) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(user);
+            if (!session.getTransaction().wasCommitted())
+                session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session != null) session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
 }

@@ -26,7 +26,8 @@ import com.restwebservice.util.DaoFactory;
 public class CreatePost {
 	
 	@POST
-	public Response createPost(@CookieParam("user") String enteredUser,
+	public Response createPost(@CookieParam("user") String enteredUser,			
+			@FormParam("post1") String title,
 			@FormParam("post") String post){
 		
 		Article article = new Article();
@@ -36,7 +37,9 @@ public class CreatePost {
         Timestamp ts = new Timestamp(time);
 	  
 		article.setText(post);
-		article.setTitle("NEW");
+		article.setTitle(title);
+		System.out.println("Asdfadkj");
+		System.out.println(title);
 		article.setDatetime(ts);
 		article.setUsersByIdUsers(DaoFactory.getUsersDaoImplInstance().selectByEmail(enteredUser));
 		

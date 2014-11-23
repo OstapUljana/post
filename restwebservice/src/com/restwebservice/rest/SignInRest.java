@@ -15,6 +15,7 @@ import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.entities.Users;
 import com.restwebservice.json.UsersJson;
 import com.restwebservice.util.DaoFactory;
+import com.restwebservice.util.MailSending;
 
 
 /**
@@ -76,6 +77,48 @@ public class SignInRest {
                 new NewCookie("user", userEmail, COOKIE_PATH, COOKIE_DOMAIN, "", 0, false); // Cookie age = 0//
 
         return Response.ok().cookie(authorizedCookie).build();
+    }
+    
+    @POST
+    @Path("/forgotpassword")
+    public Response forgotPassword(@FormParam("email") String email){
+    	if (DaoFactory.getUsersDaoImplInstance().exist(email)==false) {
+              return Response.status(409)
+                      .entity("No email").build();
+        }
+
+    	String st = "http://localhost:8080/restwebservice/newpassword.html?id="+email;
+    	MailSending mail = new MailSending();	
+        mail.sendPassword(email, st);
+        
+        NewCookie cookie = new NewCookie("forgotpassword", email, COOKIE_PATH, COOKIE_DOMAIN, "",8800,false);
+
+        // HTTP 307 - Redirect
+        return Response.status(307).entity("index1.html")
+                .cookie(cookie).build();
+    }
+    
+    @POST
+    @Path("/newpassword")
+    public Response register(@CookieParam("forgotpassword") String userEmail,
+    		@FormParam("email") String email,
+            @FormParam("password") String password) {
+     
+        // HTTP 409 (Conflict)
+        if (userEmail==email) {
+            return Response.status(409)
+                    .entity("NO").build();
+        }
+
+        Users user = DaoFactory.getUsersDaoImplInstance().selectByEmail(email);
+        user.setPassword(DigestUtils.sha1Hex(password));       
+
+        DaoFactory.getUsersDaoImplInstance().update(user);
+        NewCookie cookie =
+                new NewCookie("forgotpassword", userEmail, COOKIE_PATH, COOKIE_DOMAIN, "", 0, false); // Cookie age = 0//
+        
+        return Response.status(307).entity("index1.html")
+                .cookie(cookie).build();
     }
 }
 

@@ -11,6 +11,7 @@ import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.dao.UsersGroupDaoImpl;
 import com.restwebservice.entities.Users;
 import com.restwebservice.util.DaoFactory;
+import com.restwebservice.util.MailSending;
 
 
 @Path("/reg")
@@ -37,6 +38,8 @@ public class Registration {
        
 
         DaoFactory.getUsersDaoImplInstance().insert(user);
+        MailSending mail = new MailSending();	
+        mail.sendCongratulations(email);
 System.out.println("Login");
         return Response.ok().build();
     }

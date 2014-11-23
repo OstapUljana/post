@@ -73,7 +73,7 @@ function allPost(data, clas) {
     $('.pack').ready(function () {
         $.ajax({
             type: "get",
-            url: "/restwebservice/rest/article/list/3/1/datetime",
+            url: "/restwebservice/rest/article/list/3/0/datetime",
             crossDomain: true,
             dataType: "json",
             cache: false,
@@ -82,6 +82,34 @@ function allPost(data, clas) {
             }
         });
         
+    });
+    
+    
+    $(document).ready(function() {
+    	function checkEmail() {
+    	var email = document.getElementById('emailaddress');
+    	var filter = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+    	if (!filter.test(email.value)) {
+    	alert('Please provide a valid email address');
+    	email.focus;
+    	return false;
+    	}
+    	}
+        /*$('#email').blur(function() {
+            if($(this).val() != '') {
+                var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+                if(pattern.test($(this).val())){
+                    $(this).css({'border' : '1px solid #569b44'});
+                    $('#valid').text('Верно');
+                } else {
+                    $(this).css({'border' : '1px solid #ff0000'});
+                    $('#valid').text('Не верно');
+                }
+            } else {
+                $(this).css({'border' : '1px solid #ff0000'});
+                $('#valid').text('Поле email не должно быть пустым');
+            }
+        });*/
     });
 
 
