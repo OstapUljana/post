@@ -69,7 +69,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Name1`.`comment` ;
 
 CREATE TABLE IF NOT EXISTS `Name1`.`comment` (
-  `idcomment` INT NOT NULL,
+  `idcomment` INT NOT NULL AUTO_INCREMENT,
   `date` TIMESTAMP NULL,
   `description` VARCHAR(255) NULL,
   `idUsers` INT NULL,
