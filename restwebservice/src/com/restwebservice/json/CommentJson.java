@@ -3,20 +3,24 @@ package com.restwebservice.json;
 import java.sql.Timestamp;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import com.restwebservice.entities.Comment;
 
 public class CommentJson {
 	private int idcomment;
-    private Timestamp date;
+    private String date;
     private String description;
     private String articleByIdArticle;
     private String usersByIdUsers;
-    
+    DateFormat df = new SimpleDateFormat("dd MMMM yyyy 'at'  HH:mm", Locale.UK);	
     
 	public CommentJson(Comment comment) {
 		super();
 		this.idcomment = comment.getIdcomment();
-		this.date = comment.getDate();
+		this.date = (df.format(comment.getDate()).toString());
 		this.description = comment.getDescription();
 		this.articleByIdArticle = comment.getArticleByIdArticle().getTitle();
 		this.usersByIdUsers = comment.getUsersByIdUsers().getName();
@@ -42,12 +46,12 @@ public class CommentJson {
 	}
 
 
-	public Timestamp getDate() {
+	public String getDate() {
 		return date;
 	}
 
 
-	public void setDate(Timestamp date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
