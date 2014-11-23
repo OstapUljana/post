@@ -3,8 +3,6 @@ package com.restwebservice.entities;
 import javax.persistence.*;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 
 /**
@@ -19,7 +17,6 @@ public class Article {
     private Users usersByIdUsers;
     private String tag;
     private Collection<Comment> commentsByIdArticle;
-    //DateFormat df = new SimpleDateFormat("dd.MM.yyyy  HH:mm");
     
     @Id
     @Column(name = "idArticle", nullable = false, insertable = true, updatable = true)
@@ -44,7 +41,6 @@ public class Article {
     @Basic
     @Column(name = "datetime", nullable = true, insertable = true, updatable = true)
     public Timestamp getDatetime() {
-    
         return datetime;
     }
 

@@ -64,7 +64,7 @@ public class ArticleDaoImpl {
 	        }
 	    }
 	
-	//Занесение поста в БД
+
 	 public void insert(Article article) {
 	        Session session = HibernateUtil.getSessionFactory().openSession();
 	        try {

@@ -8,6 +8,7 @@ public class DaoFactory {
     private static UsersDaoImpl userDao = new UsersDaoImpl();
     private static ArticleDaoImpl articleDao = new ArticleDaoImpl();
     private static UsersGroupDaoImpl usersGroupDao = new UsersGroupDaoImpl();
+    private static CommentDaoImpl commentDao = new CommentDaoImpl();
     
     public static UsersDaoImpl getUsersDaoImplInstance(){
         return userDao;
@@ -21,6 +22,9 @@ public class DaoFactory {
         return usersGroupDao;
     }
 
+    public static CommentDaoImpl getCommentDaoImplInstance(){
+        return commentDao;
+    }
     
     private DaoFactory() {
 

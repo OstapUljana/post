@@ -18,7 +18,7 @@ $(document).ready(function() {
         }
     });
 });
-	
+
 function authorization() {
     $('#login').submit(function(e) {
         e.preventDefault();

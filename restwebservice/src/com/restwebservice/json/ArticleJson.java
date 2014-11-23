@@ -16,13 +16,13 @@ public class ArticleJson {
 	private String idUsers;
     private String tag;
     DateFormat df = new SimpleDateFormat("dd MMMM yyyy 'at'  HH:mm", Locale.UK);	
-	 
+    
 	public ArticleJson(Article article) {
 		super();
 		this.idArticle = article.getIdArticle();
 		this.title = article.getTitle();
 		
-		this.datetime = (df.format(article.getDatetime()).toString());		
+		this.datetime = (df.format(article.getDatetime()).toString());	
 		this.text = article.getText();
 		this.idUsers = article.getUsersByIdUsers().getName();
 		this.tag = article.getTag();
@@ -67,9 +67,8 @@ public class ArticleJson {
 	
 	@Override
 	public String toString() {
-		
 		return "ArticleJson [idArticle=" + idArticle + ", title=" + title
-				+ ", datetime=" + datetime + ", text=" + text + ", idUsers="
+				+ ", datetime=" + datetime.toString() + ", text=" + text + ", idUsers="
 				+ idUsers + ", tag=" + tag + "]";
 	}
 	@Override

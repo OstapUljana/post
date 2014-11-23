@@ -59,6 +59,7 @@ public class UsersDaoImpl {
         }
     }
     
+    
     public void update(Users user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -72,5 +73,4 @@ public class UsersDaoImpl {
             session.close();
         }
     }
-
 }

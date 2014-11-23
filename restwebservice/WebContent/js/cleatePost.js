@@ -2,8 +2,7 @@ $(document).ready(function() {
     $('#create_post').submit(function(e) {
         e.preventDefault();
         var post1 = $('#post1').val(); 
-        var post = $('#post').val(); 
-        alert(post1);
+        var post = $('#post').val();       
         $.ajax({
             type: 'post',
             url: '/restwebservice/rest/createpost',

@@ -61,7 +61,9 @@ function allPost(data, clas) {
      		         "<div class='row' id='row'>" + 
             		"<hr class='section-heading-spacer'>"+
                     "<div class='clearfix'></div>"+
-                    "<a href='rest/article/getPagePost/"+data[i].idArticle+"'><h2 class='section-heading'>" + data[i].title+ "</h2></a>"+
+                    "<a href='rest/article/getPagePost/"+data[i].idArticle+
+                    "'><h2 class='section-heading'>" + data[i].title+ 
+                    "</h2></a>"+
                     "<p class='lead'>"+ data[i].text+ "</p>"+
                     "</div></div></div>");
             i++
@@ -70,7 +72,7 @@ function allPost(data, clas) {
 }
     
 
-    $('.pack').ready(function () {
+    $('#pack').ready(function () {
         $.ajax({
             type: "get",
             url: "/restwebservice/rest/article/list/3/0/datetime",
@@ -83,8 +85,7 @@ function allPost(data, clas) {
         });
         
     });
-    
-    
+
     $(document).ready(function() {
     	function checkEmail() {
     	var email = document.getElementById('emailaddress');
@@ -111,5 +112,4 @@ function allPost(data, clas) {
             }
         });*/
     });
-
 
