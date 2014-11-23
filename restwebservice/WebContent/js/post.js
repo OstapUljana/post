@@ -131,7 +131,7 @@ function getComments(id) {
                 		"<div class=media'>"+
 		                    "<div class='media-body'>"+
 		                        "<h4 class='media-heading'>"+data[i].usersByIdUsers+
-		                            "<small>"+data[i].date+"</small>"+
+		                            "<small>  <span class='glyphicon glyphicon-time' ></span> Commented on"+data[i].date+"</small>"+
 		                        "</h4>"+data[i].description+
 		                     "</div>"+
 		                "</div>")
