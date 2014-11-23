@@ -10,10 +10,10 @@ $(document).ready(function(){
         url:"rest/article/get/"+id,
         success:function(data){
             currentArticle = data;
-            $("#users").html(data.idUsers);
-            $("#datetime").html("<span class='glyphicon glyphicon-time' ></span> Posted on "+ data.datetime);
             $("#title").html(data.title);
-            $("#text").html("<div class='well'>"+data.text+"</div>");
+            $("#users").html(data.idUsers);
+            $("#datetime").html("<span class='glyphicon glyphicon-time' ></span> Posted on "+ data.datetime);            
+            $("#text").html(data.text);
        }
     });
   
@@ -127,14 +127,14 @@ function getComments(id) {
         cache: false,
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                $(".comments").append(
+                $(".comments").append("<div class='well'>"+
                 		"<div class=media'>"+
 		                    "<div class='media-body'>"+
-		                        "<h4 class='media-heading'>"+data[i].usersByIdUsers+
-		                            "<small>  <span class='glyphicon glyphicon-time' ></span> Commented on"+data[i].date+"</small>"+
+		                        "<a><h4 class='media-heading'>"+data[i].usersByIdUsers+
+		                            "</a><small>  <span class='glyphicon glyphicon-time' ></span> Commented on "+data[i].date+"</small>"+
 		                        "</h4>"+data[i].description+
 		                     "</div>"+
-		                "</div>")
+		                "</div></div>")
 
             }
         }
