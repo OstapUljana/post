@@ -18,7 +18,7 @@ $('#bs-example-navbar-collapse-1').ready(function () {
 function logoutButtonEnable(name) {
     $('#bs-example-navbar-collapse-1').html(
             "<ul class='nav navbar-nav navbar-right'>"+
-                "<li> <a href='#'>About</a> </li>"+
+                "<li> <a href='createpost.html'>Create Post</a> </li>"+
                 "<li> <a href='#'>Feedback</a> </li>"+
                 "<li> <a href='javascript:void(0)' id = 'logout_button'>Log out</a></li>"+
                 "<li> <a href='#'>" + name +"</a></li>"+

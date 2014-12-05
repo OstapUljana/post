@@ -18,8 +18,44 @@ $(document).ready(function(){
     });
   
   getComments(id);
-
+  
 });
+
+function deletePost(){
+	 $('#delete_post_div').html(
+             "<form  id='delete_post' method='post'>"+
+             "<a href='javascript:void(0)' id = 'delete_post'>delete</a>"+
+             "</form>"
+             );
+	
+	$("#delete_post").click(function(e){
+		$.ajax({
+	        type: 'post',
+	        url: 'rest/article/deletepost',
+	        crossDomain: true,
+	        cache: false,
+	        data: {'article': id},
+	        //response: 'text', // response type
+/*	        success: function (data) {
+	        	location.href = '/restwebservice/index1.html';
+		    },
+		    error: function (data) {
+		    	alert("Error");
+		    }*/
+	        response: 'text', // response type
+            error: function (data) {
+                //$('#login_message').html(data.responseText);
+            	//alert(data.responseText);
+            },
+            statusCode: {
+                // HTTP 307 - redirect
+                307: function (data) {
+                    document.location.href = data.responseText;
+                }
+            }
+	    });
+	});
+}
 
 
 $('#bs-example-navbar-collapse-1').ready(function () {
@@ -35,6 +71,8 @@ $('#bs-example-navbar-collapse-1').ready(function () {
             } else {
                 logoutButtonEnable(data.name);
                 sendCommentsEnabe();
+                deletePost(id);
+                deleteComment();
 /*------------------------------------------------------------------*/
                 $("#form_comment").submit(function(e){
                     e.preventDefault();
@@ -50,7 +88,7 @@ $('#bs-example-navbar-collapse-1').ready(function () {
 function logoutButtonEnable(name) {
     $('#bs-example-navbar-collapse-1').html(
             "<ul class='nav navbar-nav navbar-right'>"+
-                "<li> <a href='#'>About</a> </li>"+
+                "<li> <a href='createpost.html'>Create Post</a> </li>"+
                 "<li> <a href='#'>Feedback</a> </li>"+
                 "<li> <a href='javascript:void(0)' id = 'logout_button'>Log out</a></li>"+
                 "<li> <a href='#'>" + name +"</a></li>"+
@@ -119,6 +157,8 @@ function addComment(id,comment) {
     });
 }
 
+
+
 function getComments(id) {
     $.ajax({
         type: "get",
@@ -132,6 +172,10 @@ function getComments(id) {
 		                    "<div class='media-body'>"+
 		                        "<h4 class='media-heading'>"+data[i].usersByIdUsers+
 		                            "<small>  <span class='glyphicon glyphicon-time' ></span> Commented on"+data[i].date+"</small>"+
+		                            "<form  id='delete_post' method='get'>"+
+		                            	"<a href='rest/comment/deletecomment/"+data[i].idcomment+"/"+
+		                            data[i].articleByIdArticle+"'>"
+		                            +"<div id='delete_comment'></div>"+"</a></form>"+
 		                        "</h4>"+data[i].description+
 		                     "</div>"+
 		                "</div>")
@@ -141,6 +185,9 @@ function getComments(id) {
     });
 }
 
-        
+function deleteComment(){
+	 $('#delete_comment').html(
+           "delete");
+}      
         
         

@@ -7,12 +7,15 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 
 
 
+
+import org.hibernate.Transaction;
 
 import com.restwebservice.entities.Article;
 import com.restwebservice.util.HibernateUtil;
@@ -94,4 +97,23 @@ public class ArticleDaoImpl {
 	            return null;
 	        }
 	    }
+	 public void delete(Article article) {
+	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        Transaction tx = null;
+	        try {
+	        	tx = session.beginTransaction();
+	        	Query query = session.createQuery("delete from Article article where article.idArticle = '" +
+	        										article.getIdArticle() + "'");
+	        	int deletedCount = query.executeUpdate();
+	            if (!session.getTransaction().wasCommitted())
+	                session.getTransaction().commit();
+	        } catch (Exception e) {
+	            if (session != null)
+	                session.getTransaction().rollback();
+	        } finally {
+	            session.close();
+	        }
+	    }
+	 
+	 
 }

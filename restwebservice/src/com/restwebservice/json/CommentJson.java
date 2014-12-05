@@ -22,7 +22,7 @@ public class CommentJson {
 		this.idcomment = comment.getIdcomment();
 		this.date = (df.format(comment.getDate()).toString());
 		this.description = comment.getDescription();
-		this.articleByIdArticle = comment.getArticleByIdArticle().getTitle();
+		this.articleByIdArticle = Integer.toString(comment.getArticleByIdArticle().getIdArticle());
 		this.usersByIdUsers = comment.getUsersByIdUsers().getName();
 	}
 

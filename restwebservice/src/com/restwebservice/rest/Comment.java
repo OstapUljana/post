@@ -13,6 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Timestamp;
 
 import com.restwebservice.entities.*;
@@ -29,7 +31,7 @@ public class Comment {
     public ArrayList<CommentJson> getAllComment(@PathParam("idArticle") int idArticle) {
 
         ArrayList<CommentJson> commentsJson = new ArrayList<CommentJson>();
-        
+        try{
         List<com.restwebservice.entities.Comment> comments = DaoFactory.getCommentDaoImplInstance().selectByArticle(
         		DaoFactory.getArticleDaoImplInstance().selectById(idArticle));
         
@@ -38,6 +40,10 @@ public class Comment {
             CommentJson commentJson = new CommentJson(comment);
             commentsJson.add(commentJson);
             System.out.println(commentsJson.toString());
+        }
+        }
+        catch(NullPointerException e){
+        	System.out.println("NullPointerException for comments");
         }
 
         return commentsJson;
@@ -64,5 +70,43 @@ public class Comment {
         DaoFactory.getCommentDaoImplInstance().insert(comment);
         
         return Response.ok().build();
+    }
+
+   
+    @Path("/deletecomment/{idComment}/{idArticle}")
+    @GET
+    //@Produces("application/json")
+    public Response deleteComment(@CookieParam ("user") String email,
+    		@PathParam ("idComment") String idComment,
+    		@PathParam("idArticle") String idArticle) {
+		System.out.println(idComment+"------------------------------------------------------------");
+		com.restwebservice.entities.Comment comment =(DaoFactory.getCommentDaoImplInstance().selectByIdComment(
+				Integer.parseInt(idComment)));
+		/*if (comment.getUsersByIdUsers().equals(DaoFactory.getUsersDaoImplInstance().selectByEmail(email))){
+			DaoFactory.getCommentDaoImplInstance().deleteCommentById(comment);
+		return Response.ok().build();
+		}
+		else{
+			return Response.status(409)
+                    .entity("NO").build();
+		}*/
+		URI location;
+        try {
+        	if (comment.getUsersByIdUsers().getIdUsers()==DaoFactory.getUsersDaoImplInstance().selectByEmail(email).getIdUsers()){
+        		System.out.println(comment.getUsersByIdUsers().getIdUsers()+" "+DaoFactory.getUsersDaoImplInstance().selectByEmail(email).getIdUsers());
+    			DaoFactory.getCommentDaoImplInstance().deleteCommentById(comment);
+    		//return Response.ok().build();
+    		}
+    		else{
+    			return Response.status(409)
+                        .entity("NO").build();
+    		}
+            location = new URI("../post.html?id="+idArticle);
+        }
+        catch(URISyntaxException e){
+            return null;
+        }
+        return Response.temporaryRedirect(location).build();
+		
     }
 }

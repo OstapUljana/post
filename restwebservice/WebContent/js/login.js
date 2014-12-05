@@ -32,7 +32,7 @@ function authorization() {
             response: 'text', // response type
             error: function (data) {
                 //$('#login_message').html(data.responseText);
-            	alert(data.responseText);
+            	//alert(data.responseText);
             },
             statusCode: {
                 // HTTP 307 - redirect
