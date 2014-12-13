@@ -10,7 +10,7 @@ $(document).ready(function(){
         url:"rest/article/get/"+id,
         success:function(data){
             currentArticle = data;
-            $("#users").html(data.idUsers);
+            $("#users").html("<a href='rest/article/getPageUser/"+data.users+"'>"+data.idUsers+"</a>");
             $("#datetime").html("<span class='glyphicon glyphicon-time' ></span> Posted on "+ data.datetime);
             $("#title").html(data.title);
             $("#text").html("<div class='well'>"+data.text+"</div>");
@@ -18,62 +18,23 @@ $(document).ready(function(){
     });
   
   getComments(id);
+  deletePost(id);
+//deleteComment();
   
 });
 
-function deletePost(){
-	 $('#delete_post_div').html(
-             "<form  id='delete_post' method='post'>"+
-             "<a href='javascript:void(0)' id = 'delete_post'>delete</a>"+
-             "</form>"
-             );
-	
-	$("#delete_post").click(function(e){
-		$.ajax({
-	        type: 'post',
-	        url: 'rest/article/deletepost',
-	        crossDomain: true,
-	        cache: false,
-	        data: {'article': id},
-	        //response: 'text', // response type
-/*	        success: function (data) {
-	        	location.href = '/restwebservice/index1.html';
-		    },
-		    error: function (data) {
-		    	alert("Error");
-		    }*/
-	        response: 'text', // response type
-            error: function (data) {
-                //$('#login_message').html(data.responseText);
-            	//alert(data.responseText);
-            },
-            statusCode: {
-                // HTTP 307 - redirect
-                307: function (data) {
-                    document.location.href = data.responseText;
-                }
-            }
-	    });
-	});
-}
-
-
-$('#bs-example-navbar-collapse-1').ready(function () {
-    // If user is Sign In show logout
+$('#send_comment_div').ready(function () {
     $.ajax({
         type: 'get',
         url: '/restwebservice/rest/session/get-user',
         crossDomain: true,
         success: function (data) {
             if (data.name == null) { // if response doesn't have user
-                loginButtonEnable();
                 sendCommentsDisable();
             } else {
-                logoutButtonEnable(data.name);
                 sendCommentsEnabe();
-                deletePost(id);
-                deleteComment();
-/*------------------------------------------------------------------*/
+              //  deletePost(id);
+              //  deleteComment();
                 $("#form_comment").submit(function(e){
                     e.preventDefault();
                     var comment = $("#text_comment").val();
@@ -84,45 +45,6 @@ $('#bs-example-navbar-collapse-1').ready(function () {
     });
 
 });
-
-function logoutButtonEnable(name) {
-    $('#bs-example-navbar-collapse-1').html(
-            "<ul class='nav navbar-nav navbar-right'>"+
-                "<li> <a href='createpost.html'>Create Post</a> </li>"+
-                "<li> <a href='#'>Feedback</a> </li>"+
-                "<li> <a href='javascript:void(0)' id = 'logout_button'>Log out</a></li>"+
-                "<li> <a href='#'>" + name +"</a></li>"+
-            "</ul>");
-
-    // set on click action on logout button
-    $('#logout_button').click(function () {
-        $.ajax({
-            type: 'post',
-            url: '/restwebservice/rest/session/logout',
-            crossDomain: true,
-            success: function (data) {
-                location.reload();
-            }
-        });
-    });
-}
-
-
-function loginButtonEnable() {
-    $(('#bs-example-navbar-collapse-1')).html(
-    		"<ul class='nav navbar-nav navbar-right'>"+
-            "<li> <a href='#'>About</a> </li>"+
-            "<li> <a href='#'>Feedback</a> </li>"+
-            "<li> <a href='login.html'>Log in</a></li>"+
-        "</ul>");
-    
-    $("#enter").click(function () {
-        $("#login").slideToggle("slow");
-        $(this).toggleClass("active");
-    });
-}
-
-//----------------------------------
 
 function sendCommentsEnabe() {
     $('#send_comment_div').html(
@@ -157,8 +79,6 @@ function addComment(id,comment) {
     });
 }
 
-
-
 function getComments(id) {
     $.ajax({
         type: "get",
@@ -168,13 +88,13 @@ function getComments(id) {
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 $(".comments").append(
-                		"<div class=media'>"+
+                		"<hr><div class=media'>"+
 		                    "<div class='media-body'>"+
 		                        "<h4 class='media-heading'>"+data[i].usersByIdUsers+
-		                            "<small>  <span class='glyphicon glyphicon-time' ></span> Commented on"+data[i].date+"</small>"+
+		                            " <small>  <span class='glyphicon glyphicon-time' ></span> Commented on "+data[i].date+"</small>"+
 		                            "<form  id='delete_post' method='get'>"+
 		                            	"<a href='rest/comment/deletecomment/"+data[i].idcomment+"/"+
-		                            data[i].articleByIdArticle+"'>"
+		                            			data[i].articleByIdArticle+"'>"
 		                            +"<div id='delete_comment'></div>"+"</a></form>"+
 		                        "</h4>"+data[i].description+
 		                     "</div>"+
@@ -190,4 +110,37 @@ function deleteComment(){
            "delete");
 }      
         
-        
+function deletePost(id){
+	$.ajax({
+        type: 'get',
+        url: '/restwebservice/rest/session/get-user',
+        crossDomain: true,
+        success:function(data){
+        	if(data.id == currentArticle.users){
+        		$('#delete_post_div').html(
+        	            "<hr><form  id='delete_post' method='post'>"+
+        	            "<a href='javascript:void(0)' id = 'delete_post'>delete</a>"+
+        	            "</form>"
+        	            );	
+        	}            
+        }});
+	 
+	
+	$("#delete_post").click(function(e){
+		$.ajax({
+	        type: 'post',
+	        url: 'rest/article/deletepost',
+	        crossDomain: true,
+	        cache: false,
+	        data: {'article': id},
+	        response: 'text',
+	        error: function (data) {
+	        	//alert(data.responseText);
+	        },
+	        success: function (data) {          
+               document.location.href = '/restwebservice/index.html';
+             
+           }
+	    });
+	});
+}      

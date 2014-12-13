@@ -8,6 +8,8 @@ import java.util.List;
 
 
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -18,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.restwebservice.entities.Article;
+import com.restwebservice.entities.Users;
 import com.restwebservice.util.HibernateUtil;
 
 
@@ -83,6 +86,23 @@ public class ArticleDaoImpl {
 	            return null;
 	        }
 	 }
+	 
+	//Выбор постов из базы от/до
+		 public List<Article> getAllPostUser(Users user){
+		        Session session;
+		        session = HibernateUtil.getSessionFactory().openSession();
+		        Query query = null;
+		        query = session.createQuery("FROM Article art WHERE art.usersByIdUsers = " + 
+		        		Integer.toString(user.getIdUsers()));
+		        if (!query.list().isEmpty()) {
+		            List<Article> result = query.list();
+		            session.close();
+		            return result;
+		        } else {
+		            session.close();
+		            return null;
+		        }
+		 }
 
 	 public void insert(Article article) {
 	        Session session = HibernateUtil.getSessionFactory().openSession();

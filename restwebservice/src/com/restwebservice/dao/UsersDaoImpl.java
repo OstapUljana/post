@@ -36,6 +36,21 @@ public class UsersDaoImpl {
         }
     }
     
+    public Users selectById(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("FROM Users user WHERE user.idUsers=" + id);
+        Query query = session.createQuery("FROM Users user WHERE user.idUsers=" + id);
+        if (!query.list().isEmpty()) {
+            Users result = (Users) query.list().get(0);
+            session.close();
+            return result;
+        } else {
+        	System.out.println("No id");
+            session.close();
+            return null;
+        }
+    }
+    
     public List<Users> selectAllUsers(){
     	 Session session;
 	        session = HibernateUtil.getSessionFactory().openSession();

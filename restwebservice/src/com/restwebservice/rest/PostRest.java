@@ -25,6 +25,7 @@ import javax.ws.rs.Produces;
 @Path("/article")
 public class PostRest {
 		
+	//Выбор нескольких статей
 	@Path("list/{from}/{to}/{order}/{byWhat}")
     @GET
     @Produces("application/json")
@@ -56,6 +57,19 @@ public class PostRest {
         URI location;
         try {
             location = new URI("../post.html?id="+id);
+        }
+        catch(URISyntaxException e){
+            return null;
+        }
+        return Response.temporaryRedirect(location).build();
+    }
+	
+	@Path("getPageUser/{idUser}")
+    @GET
+    public Response getPageUser(@PathParam("idUser") String id){
+        URI location;
+        try {
+            location = new URI("../page.html?id="+id);
         }
         catch(URISyntaxException e){
             return null;
@@ -95,6 +109,28 @@ public class PostRest {
 		return Response.ok().build();
 	}
 
+	@Path("getList/{id}")
+    @GET
+    @Produces("application/json")
+    public ArrayList<ArticleJson> getAllPostUser(@PathParam("id") int id) {
+		
+        ArrayList<ArticleJson> artsJson = new ArrayList<ArticleJson>();
+        
+        List<Article> articles = DaoFactory.getArticleDaoImplInstance().getAllPostUser(
+        		DaoFactory.getUsersDaoImplInstance().selectById(id));
+        try{
+	        for (Article article : articles) {
+        	//for(int i=from; i<=to; i++ ){
+	            ArticleJson artJson = new ArticleJson(article);
+	            artsJson.add(artJson);
+	            System.out.println(artJson.toString());
+        	}
+        }
+        catch(NullPointerException e){
+        	System.out.println("NullPointerException --> No articles");        	
+        }
+        return artsJson;
+    }
 	
 	//удаление статьи
     @POST
