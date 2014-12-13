@@ -56,6 +56,7 @@ public class CommentDaoImpl {
 	            session.close();
 	        }
 	}
+	
 	public void deleteComments(Article article) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -73,6 +74,8 @@ public class CommentDaoImpl {
             session.close();
         }
     }
+	
+	//
 	public void deleteCommentById(Comment comment) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         System.out.println("-----------------------------"+comment.getIdcomment());

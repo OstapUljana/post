@@ -20,10 +20,6 @@ import org.hibernate.Transaction;
 import com.restwebservice.entities.Article;
 import com.restwebservice.util.HibernateUtil;
 
-/**
- * @author User
- *
- */
 
 public class ArticleDaoImpl {
 	
@@ -65,8 +61,28 @@ public class ArticleDaoImpl {
 	            session.close();
 	            return null;
 	        }
-	    }
+	  	}
 	
+	//Выбор постов из базы от/до
+	 public List<Article> selectFromTo(String byWhat,int from, int to, boolean order){
+	        Session session;
+	        session = HibernateUtil.getSessionFactory().openSession();
+	        Query query = null;
+	        if (order == true)
+	            query = session.createQuery("FROM Article art order by art." + byWhat + " asc");
+	        else
+	            query = session.createQuery("FROM Article art order by art." + byWhat + " desc");
+	        if (!query.list().isEmpty()) {
+	            query.setFirstResult(from);
+	            query.setMaxResults(to-from);
+	            List<Article> result = query.list();
+	            session.close();
+	            return result;
+	        } else {
+	            session.close();
+	            return null;
+	        }
+	 }
 
 	 public void insert(Article article) {
 	        Session session = HibernateUtil.getSessionFactory().openSession();
@@ -113,7 +129,5 @@ public class ArticleDaoImpl {
 	        } finally {
 	            session.close();
 	        }
-	    }
-	 
-	 
+	    }	 
 }

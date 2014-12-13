@@ -118,8 +118,4 @@ public class ArticleJson {
 		return true;
 	}
 	 
-	
-	 
-	 
-	 
 }

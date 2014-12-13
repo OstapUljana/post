@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	forgot();
+	sendfeedback();
 });
 $(document).ready(function() {
     $('#email').blur(function() {
@@ -14,29 +14,29 @@ $(document).ready(function() {
             }
         } else {
             $(this).css({'border' : '1px solid #ff0000'});
-            $('#valid').alert('Email can"t be null');
+            $('#valid').text("Email can't be null");
         }
     });
 });
-	
-function forgot() {
-    $('#forgotpassword').submit(function(e) {
+
+function sendfeedback() {
+    $('#feedback').submit(function(e) {
         e.preventDefault();
         var email = $('#email').val();
+        var text = $('#text').val();
         $.ajax({
             type: 'post',
-            url: '/restwebservice/rest/session/forgotpassword',
+            url: '/restwebservice/rest/feedback/addfeedback',
             crossDomain: true,
-            data: {'email': email},
+            data: {'email': email, 'text': text},
             response: 'text', // response type
-            success: function (data) {
-            	location.href = '/restwebservice/index.html';
+            error: function (data) {
+                alert(data.responseText);
             },
-            statusCode: {
-                409: function (data) {
-                	alert(data.responseText);  
-                }
+            success: function (data) {
+                location.href = '/restwebservice/index.html';
             }
+           
 
         });       
         return false;

@@ -1,10 +1,15 @@
 package com.restwebservice.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 
 
+
+
+import com.restwebservice.entities.Article;
 import com.restwebservice.entities.Users;
 import com.restwebservice.util.HibernateUtil;
 
@@ -26,6 +31,21 @@ public class UsersDaoImpl {
             return result;
         } else {
         	System.out.println("No email");
+            session.close();
+            return null;
+        }
+    }
+    
+    public List<Users> selectAllUsers(){
+    	 Session session;
+	        session = HibernateUtil.getSessionFactory().openSession();
+	        Query query = null;
+	        query = session.createQuery("FROM Users");
+	        if (!query.list().isEmpty()) {
+            List<Users> result = query.list();
+            session.close();
+            return result;
+        } else {
             session.close();
             return null;
         }

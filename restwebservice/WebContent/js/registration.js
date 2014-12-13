@@ -42,19 +42,19 @@ $(document).ready(function() {
                 data: {'email': email, 'name': name, 'password': password},
                 response: 'text', // response type
                 success: function (data) {
-                    location.href = '/restwebservice/index1.html';
+                    location.href = '/restwebservice/index.html';
                 },
                 statusCode: {
                 	// HTTP 409 - Conflict
                 	409: function (data) {
-                		$('#status').html(data.responseText);	
+                		alert(data.responseText);	
                 	}
                 }
 
             });
 
         } else {
-            alert("Не правильні паролі");
+            alert("Incorrect password");
         }
         return false;
     });

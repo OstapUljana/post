@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>InspireMe</title>
+    <title>InspireMe - Create Post</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,8 @@
 
 	 <!-- Custom JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/cleatePost.js"></script>
+    <script src="js/createPost.js"></script>
+    <script src="js/loadHeader.js"></script>
 
 </head>
 
@@ -41,32 +42,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index1.html">InspireMe</a>
+                <a class="navbar-brand" href="index.html">InspireMe</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">               
-            </div>
-            <!-- /.navbar-collapse -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">        
+                
+            </div>            
         </div>
-        <!-- /.container -->
     </nav>
 
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
 
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
 
-                <!-- Blog Post -->
-
                 <!-- Title -->
-                <h1 id="title">New Post</h1>
+                <h1 id="title">New Post</h1>                
 
-                
-
-                <!-- Comments Form -->
                 <div class="well">
                     <h4>Write your text:</h4>
                     <form role="form" id="create_post" method="post">
@@ -76,29 +70,17 @@
                         
                        <div class="form-group">                        	
                             <textarea class="form-control" type="text" id="post" name="post" rows="3"></textarea>
-                        </div>                   
+                        </div>        
+                                   
                         <button type="submit" id="submit"  class="btn btn-primary">Create</button>
-                    </form>
-                    
- 
+                    </form>    
    	<!-- <input type="text" id="post" name="post" placeholder="Текст постa" /> -->
                 </div>
-
                 <hr>
-
-                <!-- Posted Comments -->
-
-
-                <!-- Comment -->
-                
-
             </div>
-
+            
             <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-            	
-     
-
+            <div class="col-md-4">  
                 <!-- Blog Search Well -->
                 <div class="well">
                     <h4>Blog Search</h4>
@@ -110,7 +92,6 @@
                         </button>
                         </span>
                     </div>
-                    <!-- /.input-group -->
                 </div>
 
                 <!-- Blog Categories Well -->
@@ -152,37 +133,32 @@
                 </div>--> 
 
             </div>
-
         </div>
-        <!-- /.row -->
-
         <hr>
-
     </div>
-    <!-- /.container -->
 	
 	
-	 <!-- Footer -->
+	<!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="list-inline">
                         <li>
-                            <a href="#home">Home</a>
+                            <a href="index.html">Home</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
+                        
                         <li>
-                            <a href="#about">About</a>
-                        </li>
+                            <a href="#">About</a>
+                        </li>                        
                         <li class="footer-menu-divider">&sdot;</li>
+                        
                         <li>
-                            <a href="#services">Feedback</a>
+                            <a href="feedback.html">Feedback</a>
                         </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#contact">Login</a>
-                        </li>
+                        <li class="footer-menu-divider"></li>
+                        
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; InspireMe 2014</p>
                 </div>

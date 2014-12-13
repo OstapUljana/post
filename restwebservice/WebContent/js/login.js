@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	authorization();
 });
+
 $(document).ready(function() {
     $('#email').blur(function() {
         if($(this).val() != '') {
@@ -30,17 +31,14 @@ function authorization() {
             crossDomain: true,
             data: {'email': email, 'password': password},
             response: 'text', // response type
-            error: function (data) {
-                //$('#login_message').html(data.responseText);
-            	//alert(data.responseText);
+            success: function (data) {
+            	 location.href = '/restwebservice/index.html';
             },
             statusCode: {
-                // HTTP 307 - redirect
-                307: function (data) {
-                    document.location.href = data.responseText;
-                }
+            	409: function (data) {
+            		alert(data.responseText);	
+            	}
             }
-
         });       
         return false;
     });

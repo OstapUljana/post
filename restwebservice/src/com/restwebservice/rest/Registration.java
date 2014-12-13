@@ -24,7 +24,7 @@ public class Registration {
         // HTTP 409 (Conflict)
         if (DaoFactory.getUsersDaoImplInstance().exist(email)) {
             return Response.status(409)
-                    .entity("Користувач з таким іменем уже зареєстрований").build();
+                    .entity("User with this name is exist.").build();
         }
 
         Users user = new Users();
@@ -33,8 +33,6 @@ public class Registration {
         user.seteMail(email);
         user.setPassword(DigestUtils.sha1Hex(password));
         user.setUsersgroupByUsersGroup(DaoFactory.getUsersGroupDaoImplInstance().getGroupByType("user"));
-
-       
 
         DaoFactory.getUsersDaoImplInstance().insert(user);
         MailSending mail = new MailSending();	

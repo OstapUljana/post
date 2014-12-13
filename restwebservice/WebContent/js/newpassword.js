@@ -2,10 +2,10 @@ $(document).ready(function() {
 	 var URL = window.location.search;
 	    var getRequest=URL.split("?")[1];
 	    id=getRequest.split("=")[1];
-	authorization(id);
+	newPassword(id);
 });
 	
-function authorization(id) {
+function newPassword(id) {
     $('#newpassword').submit(function(e) {
         e.preventDefault();
         var password = $('#registration_password').val();
@@ -16,17 +16,14 @@ function authorization(id) {
 	            crossDomain: true,
 	            data: {'email': id, 'password': password},
 	            response: 'text', // response type
-	            error: function (data) {
-	                //$('#login_message').html(data.responseText);
-	            	//alert(data.responseText);
+	            success: function (data) {
+	            	location.href = '/restwebservice/index.html';
 	            },
 	            statusCode: {
-	                // HTTP 307 - redirect
-	                307: function (data) {
-	                    document.location.href = data.responseText;
+	                409: function (data) {
+	                	alert(data.responseText);
 	                }
-	            }
-	
+	            }	
 	        });   
         }
         return false;

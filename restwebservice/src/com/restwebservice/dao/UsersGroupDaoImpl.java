@@ -18,5 +18,4 @@ public class UsersGroupDaoImpl {
         session.close();
         return result;
     }
-
 }
