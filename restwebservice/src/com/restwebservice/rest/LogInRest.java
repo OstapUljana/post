@@ -1,5 +1,6 @@
 package com.restwebservice.rest;
 
+import javax.ws.rs.PathParam;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.restwebservice.dao.UsersDaoImpl;
 import com.restwebservice.entities.Users;
+import com.restwebservice.json.ArticleJson;
 import com.restwebservice.json.UsersJson;
 import com.restwebservice.util.DaoFactory;
 import com.restwebservice.util.MailSending;
@@ -56,6 +58,15 @@ public class LogInRest {
     @Produces("application/json")
     public UsersJson getUser(@CookieParam("user") String userEmail) {
         Users user = DaoFactory.getUsersDaoImplInstance().selectByEmail(userEmail);
+        return new UsersJson(user);
+    }
+    
+    @Path("/getuserbyid/{id}")
+    @GET
+    @Produces("application/json")
+    public UsersJson getUserById(@PathParam("id") String id) {
+        Users user = DaoFactory.getUsersDaoImplInstance().selectById(Integer.parseInt(id));
+        System.out.println(user.getName());
         return new UsersJson(user);
     }
 

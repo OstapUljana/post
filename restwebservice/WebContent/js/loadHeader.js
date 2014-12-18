@@ -12,7 +12,6 @@ $('#bs-example-navbar-collapse-1').ready(function () {
             }
         }
     });
-
 });
 
 function logoutButtonEnable(name) {

@@ -37,9 +37,8 @@ public class UsersDaoImpl {
     }
     
     public Users selectById(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("FROM Users user WHERE user.idUsers=" + id);
-        Query query = session.createQuery("FROM Users user WHERE user.idUsers=" + id);
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery(" from Users user where user.idUsers=" +id);
         if (!query.list().isEmpty()) {
             Users result = (Users) query.list().get(0);
             session.close();

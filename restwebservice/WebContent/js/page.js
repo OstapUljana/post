@@ -1,12 +1,23 @@
-var currentArticle;
-
 $(document).ready(function(){
     var URL = window.location.search;
     var getRequest = URL.split("?")[1];
     id = getRequest.split("=")[1];
     getListPost(id);
-    
+    getNameUser(id);    
 });
+
+function getNameUser(id){
+	$('#nameUsers').ready(function () {
+	    $.ajax({
+	    	type:"get",
+	        dataType:"json",
+	        url: '/restwebservice/rest/session/getuserbyid/'+id,
+	        success: function (data) {
+	        	 $('#name').html(data.name);            
+	        }
+	    });
+	});
+}
 
 function getListPost(id){
 	$.ajax({
@@ -31,9 +42,9 @@ function allPostUser(data, clas) {
 	                    +data[i].users+"'>"+data[i].idUsers+"</a></a>"+
 	                "</p>"+
 	                "<hr>"+	
-	                "<p id='datetime'>"+"<span class='glyphicon glyphicon-time' ></span> Posted on "+ data.datetime+"</p>"+
+	                "<p id='datetime'>"+"<span class='glyphicon glyphicon-time' ></span> Posted on "+ data[i].datetime+"</p>"+
 	                "<hr>"+
-	                "<p class='lead' id='text'>"+"<div class='well'>"+data.text+"</div>"+"</p>"+     
+	                "<p class='lead' id='text'>"+"<div class='well'>"+data[i].text+"</div>"+"</p>"+     
 	                "<hr></div>"
         		)
         }
