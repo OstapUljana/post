@@ -133,6 +133,21 @@ public class ArticleDaoImpl {
 	            return null;
 	        }
 	    }
+	 public List<Article> selectByTitle(String title) {
+	        Session session;
+	        session = HibernateUtil.getSessionFactory().openSession();
+	        Query query = session.createQuery("FROM Article art WHERE art.title=" +
+	                title);
+	        if (!query.list().isEmpty()) {
+	        	List<Article> result = query.list();
+	            session.close();
+	            return result;
+	        } else {
+	            session.close();
+	            return null;
+	        }
+	    }
+
 	 public void delete(Article article) {
 	        Session session = HibernateUtil.getSessionFactory().openSession();
 	        Transaction tx = null;

@@ -8,19 +8,19 @@ $('#bs-example-navbar-collapse-1').ready(function () {
             if (data.name == null) { // if response doesn't have user
                 loginButtonEnable();
             } else {
-                logoutButtonEnable(data.name);
+                logoutButtonEnable(data);
             }
         }
     });
 });
 
-function logoutButtonEnable(name) {
+function logoutButtonEnable(data) {
     $('#bs-example-navbar-collapse-1').html(
             "<ul class='nav navbar-nav navbar-right'>"+
                 "<li> <a href='createpost.html'>Create Post</a> </li>"+
                 "<li> <a href='feedback.html'>Feedback</a> </li>"+
                 "<li> <a href='javascript:void(0)' id = 'logout_button'>Log Out</a></li>"+
-                "<li> <a href='#'>" + name +"</a></li>"+
+                "<li> <a href='rest/article/getPageUser/"+data.id+"'>" + data.name +"</a></li>"+
             "</ul>");
 
     // set on click action on logout button

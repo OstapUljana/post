@@ -36,7 +36,8 @@ function allPostUser(data, clas) {
        for (var i = 0; i < data.length; i++) {
 	       $("." + clas).append(
 	    		   "<div class='col-lg-8'>"+
-	                	"<h1 id='title'>"+data[i].title+"</h1>"+
+	    		   "<a href='rest/article/getPagePost/"+data[i].idArticle+
+                   "'><h2 class='section-heading'>"+data[i].title+"</h2></a>"+
 	                "<p class='users'>"+
 	                    "Posted by <a href='#' id='users'>"+"<a href='rest/article/getPageUser/"
 	                    +data[i].users+"'>"+data[i].idUsers+"</a></a>"+
